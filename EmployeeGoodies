@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+class Goodie {
+  String name;
+  int price;
+
+  public Goodie(String name, int price) {
+    this.name = name;
+    this.price = price;
+  }
+
+  public String toString() {
+      return this.name + ": " + this.price;
+  }
+}
+
+public class EmployeeGoodies {
+  public static void main(String[] args) throws Exception {
+    FileInputStream fis=new FileInputStream("input.txt");
+   Scanner sc=new Scanner(fis);
+   int noOfEmployees = Integer.parseInt(sc.nextLine().split(": ")[1]);
+   sc.nextLine(); sc.nextLine(); sc.nextLine();
+
+    ArrayList<Goodie> goodies = new ArrayList<Goodie>();
+
+    while(sc.hasNextLine()) 		
+	{ 		
+		String current[] = sc.nextLine().split(": ");     
+		goodies.add(new Goodie(current[0], Integer.parseInt(current[1])));
+    }
+    sc.close();
+
+    Collections.sort(goodies, new Comparator<Goodie>(){
+      public int compare(Goodie a, Goodie b) {
+        return a.price - b.price;
+      }
+    });
+
+    int minimum_difference = goodies.get(goodies.size()-1).price;
+    int min_index = 0;
+
+    for(int index=0;index<goodies.size()-noOfEmployees+1;index++) {
+      int diff = goodies.get(noOfEmployees+index-1).price-goodies.get(index).price;
+      if(diff<=minimum_difference) {
+        minimum_difference = diff;
+        min_index = index;	
+	}    
+	}
+
+    FileWriter fw = new FileWriter("output.txt");
+    fw.write("The goodies selected for distribution are:\n\n");
+    for(int i=min_index;i < min_index + noOfEmployees; i++) {
+      fw.write(goodies.get(i).toString() + "\n");
+    }
+    fw.write("\n And the difference between the chosen goodie with highest price and the lowest price is " + minimum_difference);
+      fw.close();
+  }
+}
