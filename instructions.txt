@@ -1,0 +1,21 @@
+Instructions to Compile and Run code written in Java.
+
+1. Open the EmployeeGoodies File in Java Editor.
+2. Compile the file.
+3. Set the correct number of employees in input file first line. Please set the number as per the test case given below.
+4. Run the code.
+5. Check the output file for desired output.
+
+Test case 1 (given in video)
+
+Number of employees set to 4.
+
+Test case 2 (given in video)
+
+Number of employees set to 6.
+Test case 3 (given in video)
+
+Number of employees set to 2.
+
+
+
